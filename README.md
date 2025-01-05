@@ -1,7 +1,3 @@
-Here’s an updated version of your README file that includes the installation of dependencies from `requirements.txt`:
-
----
-
 # Django Telemetry Example
 
 This repository demonstrates integrating **OpenTelemetry** with **Jaeger** and **Zipkin** for tracing in a Django application.
