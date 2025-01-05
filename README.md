@@ -17,8 +17,8 @@ This repository demonstrates integrating **OpenTelemetry** with **Jaeger** and *
 1. **Clone the Repository**
 
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/bigsbug/django-telemetry.git
+   cd django-telemetry
    ```
 
 2. **Install Python Dependencies**
