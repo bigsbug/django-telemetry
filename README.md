@@ -1,100 +1,83 @@
+Here’s an updated version of your README file that includes the installation of dependencies from `requirements.txt`:
 
-  
+---
 
 # Django Telemetry Example
 
-  
+This repository demonstrates integrating **OpenTelemetry** with **Jaeger** and **Zipkin** for tracing in a Django application.
 
-This repository is an example of using OpenTelemetry with Jaeger and Zipkin for tracing in a Django application.
-
-  
+---
 
 ## Prerequisites
 
-  
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Python 3.8+](https://www.python.org/)
 
-- Docker
-
-- Docker Compose
-
-  
+---
 
 ## Setup
 
-  
+1. **Clone the Repository**
 
-1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
 
-  
+2. **Install Python Dependencies**
 
-```sh
+   Create a virtual environment (optional) and install the required Python packages:
 
-git  clone <repository-url>
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-cd <repository-directory>
+3. **Start the Services**
 
-```
+   Use Docker Compose to start the required services:
 
-  
+   ```bash
+   docker-compose up
+   ```
 
-2. Start the services using Docker Compose:
+   This command starts the following services:
+   - **OpenTelemetry Collector**
+   - **Jaeger**
+   - **Zipkin**
 
-  
-
-```sh
-
-docker-compose  up
-
-```
-
-  
-
-This will start the following services:
-
-- OpenTelemetry Collector
-
-- Jaeger
-
-- Zipkin
-
-  
+---
 
 ## Django Application
 
-  
+The Django application is preconfigured to use SQLite as its database. You can run the application with OpenTelemetry instrumentation by executing:
 
-The Django application is configured to use SQLite as the database. You can run the application using the following command:
-
-  
-
-```sh
-
-opentelemetry-instrument  --service_name  django  python  manage.py  runserver  --noreload
-
+```bash
+opentelemetry-instrument --service_name django python manage.py runserver --noreload
 ```
 
-  
+---
 
 ## OpenTelemetry Configuration
 
-  
+The OpenTelemetry Collector is configured using `otel-collector-config.yaml`:
+- **Receivers:** Accept traces via OTLP (gRPC & HTTP).
+- **Exporters:** Send traces to **Jaeger** and **Zipkin**.
 
-The OpenTelemetry Collector is configured using the
+---
 
-  
+## Accessing Tracing UIs
 
-otel-collector-config.yaml:
+1. **Jaeger**  
+   Access Jaeger's UI at [http://localhost:16686](http://localhost:16686).  
+   - In the UI, select `django` from the list of services.
 
-- It receives traces via OTLP and exports them to Jaeger and Zipkin.
+2. **Zipkin**  
+   Access Zipkin's UI at [http://localhost:9411](http://localhost:9411).  
+   - In the UI, choose `django` as the service name.
 
-  
+---
 
-## Accessing the Tracing UI
-
-  
-
-- Jaeger: [http://localhost:16686](http://localhost:16686)
-	- - select django form services
-
-- Zipkin: [http://localhost:9411](http://localhost:9411)
-	- select django for service name on UI
+Feel free to fork this repository and use it as a base for experimenting with telemetry in Django applications!
