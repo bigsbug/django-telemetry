@@ -1,0 +1,44 @@
+version: '3.1'
+
+networks:
+  telemetry-network:
+    driver: bridge
+
+services:
+  opentelemetry:
+    image: otel/opentelemetry-collector-contrib:0.116.1
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "55679:55679"
+      - "14250:14250"
+    volumes:
+      - "./otel-collector-config.yaml:/etc/otel-collector-config.yaml"
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    networks:
+      - telemetry-network
+  
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - telemetry-network
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.64.0
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      # send directly to jaeger
+      # - "9411:9411"
+      - "55680:55680"
+    # environment:
+    #   - COLLECTOR_ZIPKIN_HTTP_PORT=9411
+    #   - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - telemetry-network
