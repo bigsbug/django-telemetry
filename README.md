@@ -51,6 +51,7 @@ This repository demonstrates integrating **OpenTelemetry** with **Jaeger** and *
 The Django application is preconfigured to use SQLite as its database. You can run the application with OpenTelemetry instrumentation by executing:
 
 ```bash
+export DJANGO_SETTINGS_MODULE=django_telemetry.settings
 opentelemetry-instrument --service_name django python manage.py runserver --noreload
 ```
 
